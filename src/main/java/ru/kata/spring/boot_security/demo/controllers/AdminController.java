@@ -47,13 +47,13 @@ public class AdminController {
     }
 
     @PostMapping("/new")
-    public String add(@ModelAttribute("user") User user){
+    public String addUser(@ModelAttribute("user") User user){
         userService.addUser(user);
         return "redirect:/admin";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") User user,
+    public String updateUser(@ModelAttribute("user") User user,
                          @PathVariable("id") Long id) {
         userService.editUser(id, user);
         return "redirect:/admin";

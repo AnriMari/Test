@@ -28,15 +28,13 @@ public class AuthController {
         this.roleService = roleService;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/login")
     public String indexPage() {
-
-        return "index";
+        return "login";
     }
 
-    @GetMapping("/login")
+    @GetMapping("/")
     public String loginPage() {
-
         return "login";
     }
 
