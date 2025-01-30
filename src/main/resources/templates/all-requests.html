@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Все запросы</title>
+</head>
+<body>
+<h1>Все запросы</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Клиент</th>
+        <th>Оператор</th>
+        <th>Данные</th>
+        <th>Статус</th>
+        <th>Комментарий</th>
+        <th>Создан</th>
+        <th>Обновлен</th>
+    </tr>
+    <tr th:each="request : ${requests}">
+        <td th:text="${request.id}"></td>
+        <td th:text="${request.client.name}"></td>
+        <td th:text="${request.operator?.name}"></td>
+        <td th:text="${request.data}"></td>
+        <td th:text="${request.status}"></td>
+        <td th:text="${request.comment}"></td>
+        <td th:text="${#dates.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#dates.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+</table>
+<a href="/requests/update-status">Обновить статус запроса</a><br/>
+<a href="/">На главную</a>
+</body>
+</html>

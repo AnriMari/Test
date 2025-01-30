@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Создание запроса</title>
+</head>
+<body>
+<h1>Создание запроса</h1>
+<form action="/requests/create" method="post">
+    <label for="data">Данные:</label>
+    <textarea id="data" name="data" required></textarea><br/>
+    <button type="submit">Создать запрос</button>
+</form>
+<a href="/requests/my-requests">Мои запросы</a><br/>
+<a href="/">На главную</a>
+</body>
+</html>

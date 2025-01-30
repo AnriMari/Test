@@ -1,6 +1,7 @@
 package ru.test.spring.boot_security.demo.services;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.test.spring.boot_security.demo.entities.Request;
 import ru.test.spring.boot_security.demo.entities.Status;
@@ -15,6 +16,7 @@ public class RequestService {
 
     private final RequestRepository requestRepository;
 
+    @Autowired
     public RequestService(RequestRepository requestRepository) {
         this.requestRepository = requestRepository;
     }
@@ -30,7 +32,9 @@ public class RequestService {
     public Request updateRequestStatus(Request request, Status status, String comment, User operator) {
         request.setStatus(status);
         request.setComment(comment);
-        request.setOperator(operator);
+        if (operator != null) {
+            request.setOperator(operator);
+        }
         return requestRepository.save(request);
     }
 

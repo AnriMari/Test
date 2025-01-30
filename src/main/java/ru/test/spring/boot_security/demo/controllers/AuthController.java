@@ -1,6 +1,9 @@
 package ru.test.spring.boot_security.demo.controllers;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +19,31 @@ import ru.test.spring.boot_security.demo.services.UserService;
 
 public class AuthController {
 
+    private final AuthenticationManager authenticationManager;
+
     private final UserService userService;
 
-    public AuthController(UserService userService) {
+    public AuthController(AuthenticationManager authenticationManager, UserService userService) {
+        this.authenticationManager = authenticationManager;
         this.userService = userService;
+    }
+
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "login"; // Возвращаем имя шаблона для формы входа
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam String name, @RequestParam String password, Model model) {
+        try {
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(name, password);
+            Authentication authentication = authenticationManager.authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return "redirect:/";
+        } catch (Exception e) {
+            model.addAttribute("error", "Invalid username or password");
+            return "login";
+        }
     }
 
     @PostMapping("/register")

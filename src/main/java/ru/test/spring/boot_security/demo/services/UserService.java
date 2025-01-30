@@ -31,8 +31,8 @@ public class UserService implements UserDetailsService {
     public User createUser(String name, String password, Role role) {
         logger.info("Creating user with name: {}", name);
         User user = new User();
-        user.setName(name); // Используем setName
-        user.setPasswordHash(passwordEncoder.encode(password));
+        user.setName(name);
+        user.setPassword(passwordEncoder.encode(password));
         user.setRole(role);
         User savedUser = userRepository.save(user);
         logger.info("User created successfully: {}", savedUser);
@@ -41,18 +41,21 @@ public class UserService implements UserDetailsService {
 
     public Optional<User> findUserByName(String name) {
         logger.info("Finding user by name: {}", name);
-        return userRepository.findByName(name); // Используем findByName
+        return userRepository.findByName(name);
     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         logger.info("Loading user by name: {}", name);
         return userRepository.findByName(name)
-                .map(user -> org.springframework.security.core.userdetails.User
-                        .withUsername(user.getName())
-                        .password(user.getPasswordHash())
-                        .roles(user.getRole().name())
-                        .build())
+                .map(user -> {
+                    logger.info("User found: {}", user);
+                    return org.springframework.security.core.userdetails.User
+                            .withUsername(user.getName())
+                            .password(user.getPassword())
+                            .roles(user.getRole().name())
+                            .build();
+                })
                 .orElseThrow(() -> {
                     logger.warn("User not found for name: {}", name);
                     return new UsernameNotFoundException("User not found");
