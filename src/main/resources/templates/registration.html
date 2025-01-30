@@ -1,96 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Registration page</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
+    <title>Регистрация</title>
 </head>
-<body style="background-color: #f8f9fa">
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 mx-auto">
-            <div class="w-50 mx-auto">
-                <form th:method="post" th:action="@{/registration}" th:object="${user}">
-                    <h2 class="form-heading">Registration</h2>
-
-                    <label for="name" class="sr-only">Enter the first name:</label>
-                    <input type="text" th:field="*{name}" id="name" class="form-control"
-                           placeholder="First name" required autofocus/>
-                    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username
-                        Error
-                    </div>
-
-                    <br/>
-
-                    <label for="lastName" class="sr-only">Enter the last name:</label>
-                    <input type="text" th:field="*{lastName}" id="lastName" class="form-control"
-                           placeholder="Last name" required autofocus/>
-                    <div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name
-                        Error
-                    </div>
-
-                    <br/>
-
-                    <label for="age" class="sr-only">Enter the age:</label>
-                    <input type="text" th:field="*{age}" id="age" class="form-control"
-                           placeholder="Age" required autofocus/>
-                    <div style="color:red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
-
-                    <br/>
-
-                    <label for="username" class="sr-only">Enter your email:</label>
-                    <input type="text" th:field="*{username}" id="username" class="form-control"
-                           placeholder="Email address" required autofocus/>
-                    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Email
-                        Error
-                    </div>
-
-                    <br/>
-
-                    <label for="name" class="sr-only">Enter the password:</label>
-                    <input type="password" th:field="*{password}" id="password" class="form-control"
-                           placeholder="Password" required autofocus/>
-                    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
-                        Error
-                    </div>
-
-                    <br/>
-
-                    <div class="mb-3">
-                        <label for="rolesDelete" class="sr-only">Role</label>
-                        <select class="form-control" id="rolesDelete"
-                                name="roles"
-                                multiple="multiple">
-                            <option th:each="role : ${rolesList}"
-                                    th:value="${role.getId()}"
-                                    th:text="${role.getRoleName()}">Role
-                                name
-                            </option>
-                        </select>
-                    </div>
-
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-                </form>
-
-                <br/>
-                <input type="button" value="Back" class="btn btn-outline-dark btn-block" onclick="history.go(-1)">
-
-                <br/>
-
-                <form th:action="@{/index}" th:method="get">
-                    <button type="submit" class="btn btn-outline-dark btn-block">Main page</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+<body>
+<h1>Регистрация</h1>
+<form action="/auth/register" method="post">
+    <label for="name">Имя:</label>
+    <input type="text" id="name" name="name" required/><br/>
+    <label for="password">Пароль:</label>
+    <input type="password" id="password" name="password" required/><br/>
+    <label for="role">Роль:</label>
+    <select id="role" name="role">
+        <option value="CLIENT">Клиент</option>
+        <option value="OPERATOR">Оператор</option>
+    </select><br/>
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<a href="/">На главную</a>
 </body>
 </html>
