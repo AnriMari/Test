@@ -23,9 +23,13 @@ public class ViewController {
     }
 
     @GetMapping("/")
-    public String index(Authentication authentication) {
+    public String index(Authentication authentication, Model model) {
         if (authentication != null && authentication.isAuthenticated()) {
-            return "redirect:/requests/my-requests";
+            String username = authentication.getName();
+            User user = userService.findUserByName(username)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            model.addAttribute("role", user.getRole().name());
+            return "index";
         }
         return "index";
     }

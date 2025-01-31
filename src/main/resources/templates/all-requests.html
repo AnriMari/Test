@@ -23,8 +23,8 @@
         <td th:text="${request.data}"></td>
         <td th:text="${request.status}"></td>
         <td th:text="${request.comment}"></td>
-        <td th:text="${#dates.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        <td th:text="${#dates.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
     </tr>
 </table>
 <a href="/requests/update-status">Обновить статус заявки</a><br/>

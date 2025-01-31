@@ -7,12 +7,17 @@
 <h1>Добро пожаловать!</h1>
 <div th:if="${#httpServletRequest.remoteUser != null}">
     <p>Вы вошли как: <span th:text="${#httpServletRequest.remoteUser}"></span></p>
-    <a href="/requests/my-requests">Мои заявки</a><br/>
+    <div th:if="${role == 'CLIENT'}">
+        <a href="/requests/my-requests">Мои заявки</a><br/>
+    </div>
+    <div th:if="${role == 'OPERATOR'}">
+        <a href="/requests/all-requests">Все заявки</a><br/>
+    </div>
     <a href="/auth/current-user">Текущий пользователь</a><br/>
     <a href="/logout">Выйти</a>
 </div>
 <div th:if="${#httpServletRequest.remoteUser == null}">
-    <a href="/login">Войти</a><br/>
+    <a href="/auth/login">Войти</a><br/>
     <a href="/auth/register">Регистрация</a>
 </div>
 </body>

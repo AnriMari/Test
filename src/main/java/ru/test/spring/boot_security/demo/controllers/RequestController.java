@@ -131,4 +131,19 @@ public class RequestController {
         model.addAttribute("requests", requests);
         return "all-requests";
     }
+
+    @GetMapping("/edit/{id}")
+    public String editRequest(@PathVariable Long id, Authentication authentication, Model model) {
+        User client = userService.findUserByName(authentication.getName())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Request request = requestService.findRequestById(id)
+                .orElseThrow(() -> new RuntimeException("Request not found"));
+
+        if (!request.getClient().equals(client)) {
+            throw new RuntimeException("Access denied");
+        }
+
+        model.addAttribute("request", request);
+        return "edit-request";
+    }
 }

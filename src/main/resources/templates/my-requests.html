@@ -21,6 +21,9 @@
         <td th:text="${request.comment}"></td>
         <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td>
+            <a th:href="@{/requests/edit/{id}(id=${request.id})}" th:if="${request.status == 'ERROR'}">Редактировать</a>
+        </td>
     </tr>
 </table>
 <a href="/requests/create">Создать новую заявку</a><br/>
