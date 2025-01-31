@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Мои запросы</title>
+    <title>Мои заявки</title>
 </head>
 <body>
-<h1>Мои запросы</h1>
+<h1>Мои заявки</h1>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -23,7 +23,7 @@
         <td th:text="${#dates.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
     </tr>
 </table>
-<a href="/requests/create">Создать новый запрос</a><br/>
+<a href="/requests/create">Создать новую заявку</a><br/>
 <a href="/">На главную</a>
 </body>
 </html>

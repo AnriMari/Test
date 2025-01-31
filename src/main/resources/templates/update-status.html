@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Обновление статуса запроса</title>
+    <title>Обновление статуса заявки</title>
 </head>
 <body>
-<h1>Обновление статуса запроса</h1>
+<h1>Обновление статуса заявки</h1>
 <form action="/requests/update-status" method="post">
-    <label for="requestId">ID запроса:</label>
+    <label for="requestId">ID заявки:</label>
     <input type="number" id="requestId" name="requestId" required/><br/>
     <label for="status">Статус:</label>
     <select id="status" name="status">
@@ -19,7 +19,7 @@
     <textarea id="comment" name="comment"></textarea><br/>
     <button type="submit">Обновить статус</button>
 </form>
-<a href="/requests/all-requests">Все запросы</a><br/>
+<a href="/requests/all-requests">Все заявки</a><br/>
 <a href="/">На главную</a>
 </body>
 </html>

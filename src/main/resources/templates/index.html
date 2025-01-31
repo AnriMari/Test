@@ -7,7 +7,7 @@
 <h1>Добро пожаловать!</h1>
 <div th:if="${#httpServletRequest.remoteUser != null}">
     <p>Вы вошли как: <span th:text="${#httpServletRequest.remoteUser}"></span></p>
-    <a href="/requests/my-requests">Мои запросы</a><br/>
+    <a href="/requests/my-requests">Мои заявки</a><br/>
     <a href="/auth/current-user">Текущий пользователь</a><br/>
     <a href="/logout">Выйти</a>
 </div>
