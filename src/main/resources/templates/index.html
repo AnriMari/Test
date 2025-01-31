@@ -13,7 +13,7 @@
     <div th:if="${role == 'OPERATOR'}">
         <a href="/requests/all-requests">Все заявки</a><br/>
     </div>
-    <a href="/auth/current-user">Текущий пользователь</a><br/>
+<!--    <a href="/auth/current-user">Текущий пользователь</a><br/>-->
     <a href="/logout">Выйти</a>
 </div>
 <div th:if="${#httpServletRequest.remoteUser == null}">

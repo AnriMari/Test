@@ -29,11 +29,15 @@ public class RequestService {
         return requestRepository.save(request);
     }
 
-    public Request updateRequestStatus(Request request, Status status, String comment, User operator) {
+    public Request updateRequestStatus(Request request,
+                                       Status status,
+                                       String comment,
+                                       User operator) {
         request.setStatus(status);
         request.setComment(comment);
         if (operator != null) {
             request.setOperator(operator);
+            System.out.println("Operator: " + operator.getName());
         }
         return requestRepository.save(request);
     }
@@ -46,7 +50,12 @@ public class RequestService {
         return requestRepository.findAll();
     }
 
-    public Optional<Request> findRequestById(Long id) {
-        return requestRepository.findById(id);
+//    public Optional<Request> findRequestById(Long id) {
+//        return requestRepository.findById(id);
+//    }
+
+    public Request findRequestById(Long id) {
+        return requestRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Request not found"));
     }
 }

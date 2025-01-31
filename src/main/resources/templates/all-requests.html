@@ -19,12 +19,15 @@
     <tr th:each="request : ${requests}">
         <td th:text="${request.id}"></td>
         <td th:text="${request.client.name}"></td>
-        <td th:text="${request.operator?.name}"></td>
+        <td th:text="${request.operator != null ? request.operator.name : 'Не назначен'}"></td>
         <td th:text="${request.data}"></td>
         <td th:text="${request.status}"></td>
         <td th:text="${request.comment}"></td>
         <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td>
+            <a th:href="@{/requests/{id}(id=${request.id})}" th:if="${request.status == 'NEW' or request.status == 'FIXED'}">Изменить статус</a>
+        </td>
     </tr>
 </table>
 <a href="/requests/update-status">Обновить статус заявки</a><br/>
