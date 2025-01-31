@@ -25,21 +25,34 @@ public class RequestController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public String getRequest(@PathVariable Long id, Authentication authentication, Model model) {
-        User user = userService.findUserByName(authentication.getName())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        Request request = requestService.findRequestById(id)
-                .orElseThrow(() -> new RuntimeException("Request not found"));
-
-        if (user.getRole() == Role.CLIENT) {
-            return getClientView(request, model);
-        } else if (user.getRole() == Role.OPERATOR) {
-            return getOperatorView(request, model);
-        } else {
-            throw new RuntimeException("Invalid role");
-        }
+    @PostMapping("/create")
+    public String createRequest(@RequestParam String data, Authentication authentication, Model model) {
+        System.out.println("Creating request with data: " + data + " by user: " + authentication.getName());
+        User client = userService.findUserByName(authentication.getName())
+                .orElseThrow(() -> {
+                    System.out.println("User not found for name: " + authentication.getName());
+                    return new RuntimeException("User not found");
+                });
+        requestService.createRequest(client, data);
+        System.out.println("Request created successfully.");
+        return "redirect:/requests/my-requests";
     }
+
+//    @GetMapping("/{id}")
+//    public String getRequest(@PathVariable Long id, Authentication authentication, Model model) {
+//        User user = userService.findUserByName(authentication.getName())
+//                .orElseThrow(() -> new RuntimeException("User not found"));
+//        Request request = requestService.findRequestById(id)
+//                .orElseThrow(() -> new RuntimeException("Request not found"));
+//
+//        if (user.getRole() == Role.CLIENT) {
+//            return getClientView(request, model);
+//        } else if (user.getRole() == Role.OPERATOR) {
+//            return getOperatorView(request, model);
+//        } else {
+//            throw new RuntimeException("Invalid role");
+//        }
+//    }
 
     private String getClientView(Request request, Model model) {
         model.addAttribute("request", request);
@@ -104,7 +117,7 @@ public class RequestController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         List<Request> requests = requestService.getRequestsByClient(client);
         model.addAttribute("requests", requests);
-        return "my-request";
+        return "my-requests";
     }
 
     @GetMapping("/all-requests")

@@ -57,7 +57,7 @@ public class ViewController {
         List<Request> requests = requestService.getRequestsByClient(client);
         model.addAttribute("requests", requests);
 
-        return "my-request";
+        return "my-requests";
     }
 
     @GetMapping("/requests/all-request")
