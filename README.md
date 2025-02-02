@@ -1,4 +1,5 @@
 Тестовое задание
+
 Технологии:
 Java (11 или выше) + Spring Boot + Hibernate (PostreSQL) + Vaadin
 Docker (опционально)
