@@ -1,24 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Главная страница</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        a {
+            display: block;
+            margin: 10px 0;
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<h1>Добро пожаловать!</h1>
-<div th:if="${#httpServletRequest.remoteUser != null}">
-    <p>Вы вошли как: <span th:text="${#httpServletRequest.remoteUser}"></span></p>
-    <div th:if="${role == 'CLIENT'}">
-        <a href="/requests/my-requests">Мои заявки</a><br/>
+<div class="container">
+    <h1>Добро пожаловать!</h1>
+    <div th:if="${#httpServletRequest.remoteUser != null}">
+        <p>Вы вошли как: <span th:text="${#httpServletRequest.remoteUser}"></span></p>
+        <div th:if="${role == 'CLIENT'}">
+            <a href="/requests/my-requests">Мои заявки</a>
+        </div>
+        <div th:if="${role == 'OPERATOR'}">
+            <a href="/requests/all-requests">Все заявки</a>
+        </div>
+        <a href="/logout">Выйти</a>
     </div>
-    <div th:if="${role == 'OPERATOR'}">
-        <a href="/requests/all-requests">Все заявки</a><br/>
+    <div th:if="${#httpServletRequest.remoteUser == null}">
+        <a href="/auth/login">Войти</a>
+        <a href="/auth/register">Регистрация</a>
     </div>
-<!--    <a href="/auth/current-user">Текущий пользователь</a><br/>-->
-    <a href="/logout">Выйти</a>
-</div>
-<div th:if="${#httpServletRequest.remoteUser == null}">
-    <a href="/auth/login">Войти</a><br/>
-    <a href="/auth/register">Регистрация</a>
 </div>
 </body>
 </html>
