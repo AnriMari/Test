@@ -72,39 +72,8 @@ public class RequestController {
             model.addAttribute("request", request);
             return "redirect:/requests/all-requests";
         } catch (RuntimeException e) {
-            // Если заявка не найдена, перенаправляем на страницу ошибки
             model.addAttribute("errorMessage", "Заявка с ID " + id + " не найдена.");
             return "error";
         }
     }
-
-//    @GetMapping("/{id}")
-//    public String getRequest(@PathVariable("id") Long id, Model model, Authentication authentication) {
-//        System.out.println("Received request for ID: " + id);
-//
-//        Request request = requestService.findRequestById(id);
-//
-//        model.addAttribute("request", request);
-//
-//        return "operator-request";
-//    }
-
-//    private String getClientView(Request request, Model model) {
-//        model.addAttribute("request", request);
-//        if (request.getStatus() == Status.ERROR) {
-//            return "edit-request";
-//        } else {
-//            return "client-request";
-//        }
-//    }
-//
-//    private String getOperatorView(Request request, Model model) {
-//        model.addAttribute("request", request);
-//        if (request.getStatus() == Status.NEW || request.getStatus() == Status.FIXED) {
-//            return "operator-request";
-//        } else {
-//            return "operator-request";
-//        }
-//    }
-
 }
