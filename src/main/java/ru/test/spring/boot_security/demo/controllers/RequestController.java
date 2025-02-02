@@ -47,29 +47,35 @@ public class RequestController {
                                         @RequestParam("action") String action,
                                         Authentication authentication,
                                         Model model) {
-        logger.info("Updating status for request id: {}", id);
-        logger.info("Action: {}", action);
-        logger.info("Comment: {}", comment);
+        try {
+            logger.info("Updating status for request id: {}", id);
+            logger.info("Action: {}", action);
+            logger.info("Comment: {}", comment);
 
-        User operator = userService.findUserByName(authentication.getName())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        Request request = requestService.findRequestById(id);
-        System.out.println(request);
+            User operator = userService.findUserByName(authentication.getName())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            Request request = requestService.findRequestById(id);
+            System.out.println(request);
 
-        if (action.equals("reject")) {
-            request.setStatus(Status.ERROR);
-            request.setComment(comment);
-            requestService.updateRequestStatus(request, Status.ERROR, comment, operator);
-        } else if (action.equals("accept")) {
-            request.setStatus(Status.DONE);
-            request.setComment(comment);
-            requestService.updateRequestStatus(request, Status.DONE, comment, operator);
-        } else {
-            model.addAttribute("error", "Invalid action");
-            return "operator-request";
+            if (action.equals("reject")) {
+                request.setStatus(Status.ERROR);
+                request.setComment(comment);
+                requestService.updateRequestStatus(request, Status.ERROR, comment, operator);
+            } else if (action.equals("accept")) {
+                request.setStatus(Status.DONE);
+                request.setComment(comment);
+                requestService.updateRequestStatus(request, Status.DONE, comment, operator);
+            } else {
+                model.addAttribute("error", "Invalid action");
+                return "operator-request";
+            }
+            model.addAttribute("request", request);
+            return "redirect:/requests/all-requests";
+        } catch (RuntimeException e) {
+            // Если заявка не найдена, перенаправляем на страницу ошибки
+            model.addAttribute("errorMessage", "Заявка с ID " + id + " не найдена.");
+            return "error";
         }
-        model.addAttribute("request", request);
-        return "redirect:/requests/all-requests";
     }
 
 //    @GetMapping("/{id}")
