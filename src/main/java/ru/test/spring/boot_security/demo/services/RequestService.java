@@ -9,7 +9,6 @@ import ru.test.spring.boot_security.demo.entities.User;
 import ru.test.spring.boot_security.demo.repository.RequestRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RequestService {
@@ -49,10 +48,6 @@ public class RequestService {
     public List<Request> getAllRequests() {
         return requestRepository.findAll();
     }
-
-//    public Optional<Request> findRequestById(Long id) {
-//        return requestRepository.findById(id);
-//    }
 
     public Request findRequestById(Long id) {
         return requestRepository.findById(id)

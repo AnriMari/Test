@@ -26,7 +26,7 @@
         <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td>
-            <a th:href="@{/requests/{id}(id=${request.id})}" th:if="${request.status == 'NEW' or request.status == 'FIXED'}">Изменить статус</a>
+            <a th:href="@{/requests/update-status(id=${request.id})}" th:if="${request.status == 'NEW' or request.status == 'FIXED'}">Изменить статус</a>
         </td>
     </tr>
 </table>

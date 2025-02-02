@@ -47,11 +47,20 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String register(@RequestParam String name, @RequestParam String password, @RequestParam Role role, Model model) {
+    public String register(@RequestParam String name,
+                           @RequestParam String password,
+                           @RequestParam Role role,
+                           Model model) {
+
         try {
-            userService.createUser(name, password, role);
-            model.addAttribute("message", "User registered successfully!");
-            return "redirect:/login"; // Перенаправляем на страницу входа после успешной регистрации
+            if (userService.findUserByName(name).isPresent()) {
+                model.addAttribute("error", "Username already exists");
+                return "register";
+            } else {
+                userService.createUser(name, password, role);
+                model.addAttribute("message", "User registered successfully!");
+                return "redirect:/login"; // Перенаправляем на страницу входа после успешной регистрации
+            }
         } catch (Exception e) {
             model.addAttribute("error", "Registration failed: " + e.getMessage());
             return "register";

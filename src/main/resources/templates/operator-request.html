@@ -4,8 +4,8 @@
     <title>Подтверждение/отклонение заявки</title>
 </head>
 <body>
-<div th:if="${request.status == 'NEW' or request.status == 'FIXED'}">
-    <h1>Подтверждение/отклонение заявки</h1>
+<!--<div th:if="${request.status == 'NEW' or request.status == 'FIXED'}">-->
+<!--    <h1>Подтверждение/отклонение заявки</h1>-->
     <form action="/requests/update-status" method="post">
         <input type="hidden" name="id" th:value="${request.id}"/>
         <label for="comment">Комментарий:</label>
