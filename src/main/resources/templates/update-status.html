@@ -2,34 +2,132 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Обновление статуса заявки</title>
+    <style>
+        /* Общие стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Оформление контейнера формы */
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Стиль для всех элементов формы */
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        /* Кнопки */
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[value="reject"] {
+            background-color: #f44336; /* Красный */
+        }
+
+        button[value="accept"] {
+            background-color: #4CAF50; /* Зеленый */
+        }
+
+        button[value="cancel"] {
+            background-color: #9E9E9E; /* Серый */
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        /* Ссылки */
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #2196F3;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Оформление блока с ссылками */
+        .links {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<h1>Обновление статуса заявки</h1>
 <form action="/requests/update-status" method="post">
+    <h1>Обновление статуса заявки</h1>
+
     <label for="requestId">ID заявки:</label>
-    <input type="number" id="requestId" name="requestId" required/><br/>
-    <label for="status">Статус:</label>
-    <select id="status" name="status">
-        <option value="NEW">NEW</option>
-        <option value="ERROR">ERROR</option>
-        <option value="FIXED">FIXED</option>
-        <option value="DONE">DONE</option>
-    </select><br/>
+    <input type="number" id="requestId" name="id" required />
+
     <label for="comment">Комментарий:</label>
-    <textarea id="comment" name="comment"></textarea><br/>
-<!--    <div>-->
-<!--        &lt;!&ndash; Кнопка "Есть замечания" передает значение "reject" &ndash;&gt;-->
-<!--        <button type="submit" name="action" value="reject">Есть замечания</button>-->
+    <textarea id="comment" name="comment" required></textarea>
 
-<!--        &lt;!&ndash; Кнопка "Выполнить" передает значение "accept" &ndash;&gt;-->
-<!--        <button type="submit" name="action" value="accept">Выполнить</button>-->
+    <div style="text-align: center;">
+        <!-- Кнопка "Есть замечания" передает значение "reject" -->
+        <button type="submit" name="action" value="reject">ERROR</button>
 
-<!--        &lt;!&ndash; Кнопка "Отмена" передает значение "cancel" &ndash;&gt;-->
-<!--        <button type="submit" name="action" value="cancel">Отмена</button>-->
-<!--    </div>-->
-    <button type="submit">Обновить статус</button>
+        <!-- Кнопка "Выполнить" передает значение "accept" -->
+        <button type="submit" name="action" value="accept">DONE</button>
+
+        <!-- Кнопка "Отмена" передает значение "cancel" -->
+        <button type="submit" name="action" value="cancel">CANCEL</button>
+    </div>
 </form>
-<a href="/requests/all-requests">Все заявки</a><br/>
-<a href="/">На главную</a>
+
+<!-- Ссылки расположены внизу страницы -->
+<div class="links">
+    <a href="/requests/all-requests">Все заявки</a><br/>
+    <a href="/">На главную</a>
+</div>
 </body>
 </html>
+
+

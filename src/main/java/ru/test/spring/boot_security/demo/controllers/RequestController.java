@@ -29,7 +29,9 @@ public class RequestController {
     }
 
     @PostMapping("/create")
-    public String createRequest(@RequestParam String data, Authentication authentication, Model model) {
+    public String createRequest(@RequestParam String data,
+                                Authentication authentication,
+                                Model model) {
         User client = userService.findUserByName(authentication.getName())
                 .orElseThrow(() -> {
                     System.out.println("User not found for name: " + authentication.getName());
