@@ -39,13 +39,11 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.vaadin/vaadin -->
-<!--		<dependency>-->
-<!--			<groupId>com.vaadin</groupId>-->
-<!--			<artifactId>vaadin</artifactId>-->
-<!--			<version>24.5.7</version>-->
-<!--		</dependency>-->
-
-
+		<dependency>
+			<groupId>com.vaadin</groupId>
+			<artifactId>vaadin</artifactId>
+			<version>24.5.7</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -77,6 +75,49 @@
 
 	<build>
 		<plugins>
+<!--			<plugin>-->
+<!--				<groupId>com.vaadin</groupId>-->
+<!--				<artifactId>vaadin-maven-plugin</artifactId>-->
+<!--				<version>24.5.7</version> &lt;!&ndash; Замените на актуальную версию &ndash;&gt;-->
+<!--				<executions>-->
+<!--					<execution>-->
+<!--						<goals>-->
+<!--							<goal>prepare-frontend</goal>-->
+<!--							<goal>build-frontend</goal>-->
+<!--						</goals>-->
+<!--					</execution>-->
+<!--				</executions>-->
+<!--			</plugin>-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>1.18.30</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Main-Class>ru.test.spring.boot_security.demo.SpringBootSecurityDemoApplication</Main-Class>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
