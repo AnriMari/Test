@@ -76,9 +76,4 @@ public class ViewController {
         model.addAttribute("requests", requests);
         return "all-requests";
     }
-
-    @GetMapping("/requests/update-status")
-    public String updateStatus() {
-        return "update-status";
-    }
 }

@@ -53,4 +53,8 @@ public class RequestService {
         return requestRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Request not found"));
     }
+
+    public Request updateRequest(Request request) {
+        return requestRepository.save(request);
+    }
 }

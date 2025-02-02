@@ -1,87 +1,117 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мои заявки</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #f9f9f9;
             margin: 0;
-            overflow-x: hidden;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
         }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 1000px;
-            text-align: center;
-            overflow-x: auto;
-        }
+
         h1 {
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
+            color: #333;
             margin-top: 20px;
-            overflow-x: auto;
-            display: block;
-            white-space: nowrap;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
             text-align: center;
         }
+
+        table {
+            width: 80%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
         th {
-            background-color: #28a745;
+            background-color: #4CAF50;
             color: white;
         }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        td a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            color: #45a049;
+        }
+
         a {
             display: inline-block;
-            margin: 10px 5px;
+            margin-top: 20px;
+            padding: 10px 15px;
+            color: white;
             text-decoration: none;
-            color: #007bff;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
-        a:hover {
-            text-decoration: underline;
+
+        .links {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .links a {
+            background-color: #9E9E9E;
+            margin-top: 10px;
+        }
+
+        .links a:hover {
+            background-color: #757575;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Мои заявки</h1>
-    <div style="overflow-x: auto;">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Данные</th>
-                <th>Статус</th>
-                <th>Комментарий</th>
-                <th>Создан</th>
-                <th>Обновлен</th>
-            </tr>
-            <tr th:each="request : ${requests}">
-                <td th:text="${request.id}"></td>
-                <td th:text="${request.data}"></td>
-                <td th:text="${request.status}"></td>
-                <td th:text="${request.comment}"></td>
-                <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                <td th:text="${#temporals.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-            </tr>
-        </table>
-    </div>
-    <a href="/requests/create">Создать новую заявку</a>
+<h1>Мои заявки</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Данные</th>
+        <th>Статус</th>
+        <th>Комментарий</th>
+        <th>Создан</th>
+        <th>Обновлен</th>
+    </tr>
+    <tr th:each="request : ${requests}">
+        <td th:text="${request.id}"></td>
+        <td th:text="${request.data}"></td>
+        <td>
+            <a th:if="${request.status == T(ru.test.spring.boot_security.demo.entities.Status).ERROR}"
+               th:href="@{/requests/edit/{id}(id=${request.id})}"
+               th:text="${request.status}"></a>
+            <a th:unless="${request.status == T(ru.test.spring.boot_security.demo.entities.Status).ERROR}"
+               th:href="@{/requests/status/{id}(id=${request.id})}"
+               th:text="${request.status}"></a>
+        </td>
+        <td th:text="${request.comment}"></td>
+        <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td th:text="${#temporals.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+    </tr>
+</table>
+
+<div class="links">
+    <a href="/requests/create">Создать новую заявку</a><br/>
     <a href="/">На главную</a>
 </div>
 </body>
 </html>
-

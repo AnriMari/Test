@@ -58,16 +58,11 @@
             display: inline-block;
             margin-top: 20px;
             padding: 10px 15px;
-            background-color: #2196F3;
             color: white;
             text-decoration: none;
             border-radius: 4px;
             font-size: 16px;
             transition: background-color 0.3s ease;
-        }
-
-        a:hover {
-            background-color: #1976D2;
         }
 
         .links {
@@ -105,7 +100,9 @@
         <td th:text="${request.client.name}"></td>
         <td th:text="${request.operator != null ? request.operator.name : 'Не назначен'}"></td>
         <td th:text="${request.data}"></td>
-        <td th:text="${request.status}"></td>
+        <td>
+            <a th:href="@{/requests/update-status/{id}(id=${request.id})}" th:text="${request.status}"></a>
+        </td>
         <td th:text="${request.comment}"></td>
         <td th:text="${#temporals.format(request.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
         <td th:text="${#temporals.format(request.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
@@ -113,9 +110,7 @@
 </table>
 
 <div class="links">
-    <a href="/requests/update-status">Обновить статус заявки</a><br/>
     <a href="/">На главную</a>
 </div>
-
 </body>
 </html>

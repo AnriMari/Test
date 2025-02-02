@@ -44,13 +44,9 @@ public class SecurityConfig {
                         .requestMatchers(
                                 new AntPathRequestMatcher("/requests/my-requests")).hasRole("CLIENT")
                         .requestMatchers(
-                                new AntPathRequestMatcher("/requests/update/**")).hasRole("CLIENT")
-                        .requestMatchers(
                                 new AntPathRequestMatcher("/requests/create")).hasRole("CLIENT")
                         .requestMatchers(
                                 new AntPathRequestMatcher("/requests/all-requests")).hasRole("OPERATOR")
-                        .requestMatchers(
-                                new AntPathRequestMatcher("/requests/update-status/**")).hasRole("OPERATOR")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

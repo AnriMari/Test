@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Обновление статуса заявки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            height: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[value="reject"] {
+            background-color: #f44336;
+        }
+
+        button[value="accept"] {
+            background-color: #4CAF50;
+        }
+
+        button[value="cancel"] {
+            background-color: #9E9E9E;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #2196F3;
+            text-decoration: none;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .links {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/requests/update-status/{id}(id=${request.id})}" method="post">
+    <h1>Обновление статуса заявки</h1>
+
+    <label for="comment">Комментарий:</label>
+    <textarea id="comment" name="comment" required></textarea>
+
+    <div style="text-align: center;">
+        <button type="submit" name="action" value="reject">Есть замечания</button>
+        <button type="submit" name="action" value="accept">Выполнить</button>
+        <button type="submit" name="action" value="cancel">Отмена</button>
+    </div>
+</form>
+
+<div class="links">
+    <a href="/requests/all-requests">Все заявки</a><br/>
+    <a href="/">На главную</a>
+</div>
+</body>
+</html>

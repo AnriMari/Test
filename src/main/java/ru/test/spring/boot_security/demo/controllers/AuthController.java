@@ -59,7 +59,7 @@ public class AuthController {
             } else {
                 userService.createUser(name, password, role);
                 model.addAttribute("message", "User registered successfully!");
-                return "redirect:/login"; // Перенаправляем на страницу входа после успешной регистрации
+                return "redirect:/login";
             }
         } catch (Exception e) {
             model.addAttribute("error", "Registration failed: " + e.getMessage());

@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Обновление статуса заявки</title>
+    <title>Редактирование заявки</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -61,20 +60,12 @@
             transition: background-color 0.3s;
         }
 
-        button[value="reject"] {
-            background-color: #f44336;
-        }
-
-        button[value="accept"] {
+        button[type="submit"] {
             background-color: #4CAF50;
         }
 
-        button[value="cancel"] {
-            background-color: #9E9E9E;
-        }
-
-        button:hover {
-            background-color: #555;
+        button[type="submit"]:hover {
+            background-color: #45a049;
         }
 
         a {
@@ -89,34 +80,26 @@
         a:hover {
             text-decoration: underline;
         }
-
-        .links {
-            text-align: center;
-        }
     </style>
 </head>
 <body>
-<form action="/requests/update-status" method="post">
-    <h1>Обновление статуса заявки</h1>
+<form th:action="@{/requests/edit/{id}(id=${request.id})}" method="post">
+    <h1>Редактирование заявки</h1>
 
-    <label for="requestId">ID заявки:</label>
-    <input type="number" id="requestId" name="id" required />
+    <label for="data">Данные:</label>
+    <textarea id="data" name="data" th:text="${request.data}" required></textarea>
 
     <label for="comment">Комментарий:</label>
-    <textarea id="comment" name="comment" required></textarea>
+    <textarea id="comment" name="comment" th:text="${request.comment}" readonly></textarea>
 
     <div style="text-align: center;">
-        <button type="submit" name="action" value="reject">ERROR</button>
-        <button type="submit" name="action" value="accept">DONE</button>
-        <button type="submit" name="action" value="cancel">CANCEL</button>
+        <button type="submit">Сохранить изменения</button>
     </div>
 </form>
 
 <div class="links">
-    <a href="/requests/all-requests">Все заявки</a><br/>
+    <a href="/requests/my-requests">Мои заявки</a><br/>
     <a href="/">На главную</a>
 </div>
 </body>
 </html>
-
-
